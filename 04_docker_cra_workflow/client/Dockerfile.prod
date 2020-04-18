@@ -1,0 +1,25 @@
+# Select base image
+FROM node:alpine
+
+# Select work dir
+WORKDIR /app
+
+# Select required files
+COPY ./package.json ./
+
+# Run command
+RUN npm install
+
+# Copy rest of the files
+COPY ./public ./
+COPY ./src ./
+COPY ./Dockerfile.dev ./
+
+# Run test
+# RUN npm run test
+
+# Run build
+# RUN npm run build
+
+# Startup Command
+CMD [ "npm", "run", "start" ]
