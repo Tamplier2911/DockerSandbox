@@ -16,11 +16,5 @@ RUN npm install
 # Copy rest of the files
 # COPY ./ ./
 
-# Run test
-# RUN npm run test
-
-# Run build
-# RUN npm run build
-
 # Startup Command
 CMD [ "npm", "run", "start" ]
