@@ -1,17 +1,20 @@
 # Select base image
 FROM node:alpine
 
+# Create app directory
+RUN mkdir /app
+
 # Select work dir
 WORKDIR /app
 
 # Select required files
-COPY ./package.json ./
+COPY . /app
 
 # Run command
 RUN npm install
 
 # Copy rest of the files
-COPY ./ ./
+# COPY ./ ./
 
 # Run test
 # RUN npm run test

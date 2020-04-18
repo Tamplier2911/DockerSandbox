@@ -1,4 +1,4 @@
-import "./PageContent.scss";
+import "./PageContent.css";
 import React from "react";
 
 import CardCollection from "../CardCollection/CardCollection";

@@ -1,4 +1,4 @@
-import "./CardComponent.scss";
+import "./CardComponent.css";
 import React from "react";
 import {
   Card,

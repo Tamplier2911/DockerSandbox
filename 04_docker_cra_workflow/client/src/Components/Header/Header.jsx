@@ -1,4 +1,4 @@
-import "./Header.scss";
+import "./Header.css";
 import React from "react";
 import {
   AppBar,

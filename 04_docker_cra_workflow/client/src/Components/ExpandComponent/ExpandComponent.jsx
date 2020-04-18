@@ -1,4 +1,4 @@
-import "./ExpandComponent.scss";
+import "./ExpandComponent.css";
 import React, { useState } from "react";
 import {
   ExpansionPanel,
