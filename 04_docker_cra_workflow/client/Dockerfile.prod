@@ -11,9 +11,7 @@ COPY ./package.json ./
 RUN npm install
 
 # Copy rest of the files
-COPY ./public ./
-COPY ./src ./
-COPY ./Dockerfile.dev ./
+COPY ./ ./
 
 # Run test
 # RUN npm run test

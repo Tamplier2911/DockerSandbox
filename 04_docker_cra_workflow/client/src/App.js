@@ -7,14 +7,16 @@ import PageContent from "./Components/PageContent/PageContent";
 
 import { Container } from "@material-ui/core";
 
+import { AppContainer } from "./AppStyles";
+
 function App() {
   return (
-    <div>
+    <AppContainer>
       <Header />
       <Container maxWidth="lg">
         <PageContent />
       </Container>
-    </div>
+    </AppContainer>
   );
 }
 
