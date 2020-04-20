@@ -7,14 +7,15 @@ RUN mkdir /app
 # Select work dir
 WORKDIR /app
 
-# Select required files
-COPY . /app
+# Copy required files
+# COPY . /app
+COPY package.json .
 
-# Run command
+# Run command to install dependencies
 RUN npm install
 
 # Copy rest of the files
-# COPY ./ ./
+COPY ./ ./
 
 # Startup Command
 CMD [ "npm", "run", "start" ]
