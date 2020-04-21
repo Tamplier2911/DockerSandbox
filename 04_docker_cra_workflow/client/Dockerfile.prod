@@ -1,10 +1,11 @@
+############### Build Stage ###############
 # Select base image
-FROM node:alpine
+FROM node:alpine as build-stage
 
 # Select work dir
 WORKDIR /app
 
-# Select required files
+# Select copy package.json
 COPY ./package.json ./
 
 # Run command
@@ -13,5 +14,17 @@ RUN npm install
 # Copy rest of the files
 COPY ./ ./
 
+# Run build
+RUN npm run build
+# ./app/build    <-- our build
+
+############### Run Stage ##################
+# Select base image
+FROM nginx
+
+# Copy result of build from build stage
+COPY --from=build-stage ./app/build ./usr/share/nginx/html 
+
 # Startup Command
-CMD [ "npm", "run", "start" ]
+# nginex runs own default startup command
+# CMD [ "npm", "run", "build" ]
