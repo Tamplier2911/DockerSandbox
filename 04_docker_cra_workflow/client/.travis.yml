@@ -1,0 +1,33 @@
+# setup
+language: generic
+sudo: required
+services:
+  - docker
+
+# commands to run before deploy / test
+defore_install:
+  #  build docker image
+  - docker build -f Dockerfile.dev -t tamplier2911/docker-cra-travis .
+
+# command to run tests suite
+script:
+  #  create and run a container out of image
+  #  set environment variable CI to true
+  #  re-write startup command to run test suite
+  - docker run -e CI=true tamplier2911/docker-cra-travis npm run test
+
+deploy:
+  provider: elasticbeanstalk
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
+  # region where app is hosted DockerCra-env.eba-zib5nqns. -> us-east-2 <- .elasticbeanstalk.com
+  region: "us-east-2"
+  app: "docker-cra"
+  env: "DockerCra-env"
+  # services -> s3 -> physical storage elasticbeanstalk- -> us-east-2 <- -975774253536
+  bucket_name: "elasticbeanstalk-us-east-2-975774253536"
+  # location within a bucket
+  bucket_path: "docker-cra"
+  # run only on master branch
+  on:
+    branch: master
