@@ -16,11 +16,3 @@ process.on("unhandledRejection", (err) => {
     process.exit(1);
   });
 });
-
-// process.env.REDIS_HOST;
-// process.env.REDIS_PORT;
-// process.env.PGUSER;
-// process.env.PGHOST;
-// process.env.PGPORT;
-// process.env.PGDATABASE;
-// process.env.PGPASSWORD;
