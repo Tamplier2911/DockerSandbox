@@ -1,0 +1,74 @@
+version: "3"
+services:
+  postgres:
+    image: "postgres:latest"
+    env_file:
+      - ./.env
+    environment:
+      - PGPASSWORD
+
+  redis:
+    image: "redis:latest"
+
+  api:
+    depends_on:
+      - postgres
+    image: tamplier2911/docker-mca-comp-serv
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    # ports:
+    env_file:
+      - ./.env
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - REDIS_HOST
+      - REDIS_PORT
+      - PGUSER
+      - PGHOST
+      - PGDATABASE
+      - PGPASSWORD
+      - PGPORT
+    volumes:
+      - /app/node_modules
+      - ./server:/app
+    stdin_open: true
+
+  client:
+    image: tamplier2911/docker-mca-comp-client
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    # ports:
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+    stdin_open: true
+
+  worker:
+    image: tamplier2911/docker-mca-comp-work
+    build:
+      context: ./worker
+      dockerfile: Dockerfile.dev
+    # ports:
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - REDIS_HOST
+      - REDIS_PORT
+    volumes:
+      - /app/node_modules
+      - ./worker:/app
+    stdin_open: true
+
+  nginx:
+    depends_on:
+      - api
+      - client
+    restart: always
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile.dev
+    ports:
+      - 8080:80
