@@ -1,0 +1,36 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "client",
+      "image": "tamplier2911/docker-mca-client-prod",
+      "hostname": "client",
+      "essential": false
+    },
+    {
+      "name": "nginx",
+      "image": "tamplier2911/docker-mca-nginx-prod",
+      "hostname": "nginx",
+      "essential": true,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ],
+      "links": ["client", "server"]
+    },
+    {
+      "name": "server",
+      "image": "tamplier2911/docker-mca-server-prod",
+      "hostname": "api",
+      "essential": false
+    },
+    {
+      "name": "worker",
+      "image": "tamplier2911/docker-mca-worker-prod",
+      "hostname": "worker",
+      "essential": false
+    }
+  ]
+}
