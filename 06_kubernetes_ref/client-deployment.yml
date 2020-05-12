@@ -1,0 +1,35 @@
+# define api version (what kind of objects we want to use)
+apiVersion: apps/v1
+# kind represents the type of object that we want to create
+kind: Deployment
+# metadata about the deployment
+metadata:
+	# name of the deployment, mostly used for log purposes
+	name: client-deployment
+spec:
+	# amount of (identical) pods deployment is going to create
+    replicas: 1
+    # selector is used to so deployment can reference pod after it created by master
+    selector:
+        # which pods are going to match
+        matchLabels:
+            # label of the component (is arbitrarily chosen)
+            component: web
+    # configuration that is going to be applied to all pods created by deployment
+    template:
+        # meta data about pod config
+		metadata:
+			# label selector system is used for references
+			labels:
+				# label of the component (is arbitrarily chosen)
+				component: web
+        spec:
+            # containers used to describe number of containers running in a pod
+            containers:
+                # only one "client" container is specified to run inside of this pod
+                - name: client
+                    # cointainer will be build from image from our docker hub
+				   	image: tamplier2911/multi-client #(assume img is on docker hub)
+                    # which ports we expose to ouside world
+                    ports:
+						- containerPort: 3000

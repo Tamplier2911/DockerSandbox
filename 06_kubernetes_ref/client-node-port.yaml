@@ -1,0 +1,26 @@
+# define api version (what kind of objects we want to use)
+apiVersion: v1
+# kind represents the type of object that we want to create
+kind: Service
+# meta data about the service
+metadata:
+	# name of the service, mostly used for log purposes
+	name: client-node-port
+spec:
+	# subtype of service
+	type: NodePort
+	# ports describes collection of ports that need to be mapped to target object
+	ports:
+        # port property describes a port that another Pod or container can 
+        # access in order to get access to target object
+		- port: 3050
+			# targetPort is identical to port we expose in target object
+			# is a port inside of a Pod that we want to open up traffic to
+			targetPort: 3000
+            # port that we are going to access from our browser 
+            # not used for production
+			nodePort: 31515	(30000-32767)
+	# selector is used to select components, that config going to be applied to
+	selector:
+		# config going to be applied to label - web component
+		component: web

@@ -1,0 +1,22 @@
+# define api version (what kind of objects we want to use)
+apiVersion: v1
+# kind represents the type of object that we want to create
+kind: Pod
+# metadata about the pod
+metadata:
+    # name of the pod, mostly used for log purposes
+	name: client-pod
+	# label selector system is used to refer to this pod from service file
+	labels:
+		# label of the component (is arbitrarily chosen)
+		component: web # (may aswell be "tier: client" or anything else)
+spec:
+	# containers used to describe number of containers running in a pod
+	containers:
+		# only one "client" container is specified to run inside of this pod
+		- name: client
+			# cointainer will be build from image from our docker hub
+			image: tamplier2911/multi-client #(assume img is on docker hub)
+			# which ports we expose to ouside world
+			ports:
+				- containerPort: 3000
